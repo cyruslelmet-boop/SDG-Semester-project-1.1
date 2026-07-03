@@ -53,3 +53,80 @@ The application runs **completely offline**, requires no internet connection, an
 1. **Clone the repository**
    ```bash
    git clone https://github.com/cyruslelmet-boop/SDG-Semester-project-1.1.git
+
+2.**Run the Script**
+   Make sure python 3 is installed in your system.No extra libraries are needed.
+
+   bash
+   python3 ushuru_wangu.py
+
+3.**Use the Menu**
+  Option 1-Calculate a fuel tax receipt
+  Option 2-Report a pothole/road condition
+  Option 3-Exit
+
+  The program creates two text files in the same folder :
+   tax_receipts.txt-stores all generated receipts.
+   pothole_reports.txt-stores all submitted road reports.
+
+**FILE STRUCTURE**
+
+  ushuru-wangu/
+│
+├── ushuru_wangu.py          # Main application (all source code)
+├── tax_receipts.txt          # Saved receipts (auto-generated on first use)
+├── pothole_reports.txt       # Saved road reports (auto-generated on first use)
+└── README.md                 # This file
+
+**EXAMPLE USAGE**
+
+  Tax receipt Calculation
+
+   ===== USHURU WANGU =====
+1. Calculate my fuel tax receipt
+2. Report a pothole / road condition
+3. Exit
+Enter your choice (1-3): 1
+Fuel type (petrol/diesel): petrol
+Litres purchased: 20
+
+==================================================
+       USHURU WANGU - TAX RECEIPT
+==================================================
+Fuel Type:      Petrol
+Litres Purchased: 20.00 L
+--------------------------------------------------
+Road Maintenance Levy           KES   500.00
+Excise Duty                     KES   439.00
+Petroleum Development Levy      KES     8.00
+Petroleum Regulatory Levy       KES     5.00
+Vat                             KES   152.32
+--------------------------------------------------
+TOTAL TAX PAID                  KES  1104.32
+==================================================
+
+--- Tax Comparison (per litre) ---
+Kenya: ~KES 70.00
+Uganda: ~KES 55.00
+Tanzania: ~KES 50.00
+Your effective tax per litre: KES 55.22
+
+
+Pothole Reporting
+
+===== USHURU WANGU =====
+1. Calculate my fuel tax receipt
+2. Report a pothole / road condition
+3. Exit
+Enter your choice (1-3): 2
+
+=== REPORT A POTHOLE ===
+Enter location: Moi Avenue, near Hilton
+Severity (1=small, 2=medium, 3=large): 3
+Brief description (optional): Deep hole, damaged two tyres yesterday
+Report saved. Asante!
+
+
+**CONTRIBUTORS**
+NAME               GITHUB USERNAME           ROLE
+cyruslelmet 
