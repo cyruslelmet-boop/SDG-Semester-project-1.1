@@ -106,7 +106,8 @@ def display_receipt(breakdown, fuel_type, litres):
     """Print a formatted tax receipt with full cost breakdown."""
     pump_price = RETAIL_PRICE[fuel_type] * litres
     total_tax = breakdown["total_tax"]
-    base_cost = pump_price - total_tax  # landed cost + margins + variable levies
+    base_cost = pump_price - total_tax              # total cost without taxes
+    base_cost_per_l = base_cost / litres             # per litre without taxes
 
     print("\n" + "=" * 50)
     print("       USHURU WANGU - TAX RECEIPT")
@@ -126,9 +127,10 @@ def display_receipt(breakdown, fuel_type, litres):
 
     print("-" * 50)
     print(f"{'TOTAL TAXES':<30} KES {total_tax:>8,.2f}")
-    print(f"{'BASE FUEL COST':<30} KES {base_cost:>8,.2f}")
+    print(f"{'COST OF FUEL ONLY':<30} KES {base_cost:>8,.2f}")
+    print(f"{'Cost/L (No Tax)':<30} KES {base_cost_per_l:>8,.2f}")
     print("=" * 50)
-    print("  * Base fuel cost = landed cost + margins +")
+    print("  * 'Cost of Fuel Only' = landed cost + margins +")
     print("    variable levies (e.g. PDL). This is what")
     print("    the fuel would cost without the taxes above.")
     print("=" * 50 + "\n")
