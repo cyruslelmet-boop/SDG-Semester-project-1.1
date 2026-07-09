@@ -41,7 +41,7 @@ The application runs **completely offline**, requires no internet connection, an
 
 ## Technologies and Concepts Used
 
-- **Language:** Python 3 (no external libraries required)
+- **Language:** Python3 (no external libraries required)
 - **Core Programming Concepts:** Variables, data types, conditional statements (`if/elif/else`), iterative structures (`while`, `for`), user-defined functions, parameter passing, string formatting, file input/output, exception handling, and dictionaries
 - **Development Tools:** Visual Studio Code, Git, GitHub
 - **Alignment with CSE 1213 / ICS 1102:** This project applies every major topic covered up to Week 10 of the Introduction to Computer Programming course, with a gentle introduction to file I/O and data structures from Week 12
