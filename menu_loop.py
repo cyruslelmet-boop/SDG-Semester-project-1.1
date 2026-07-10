@@ -5,13 +5,14 @@ def main_menu():
     """
     while True:
         # Display the clear menu system
-        print("\n=================================")
-        print("   USHURU WANGU (MY TAX) TOOL    ")
-        print("=================================")
-        print("1. Tax Receipt Calculator")
-        print("2. Community Road Reporter")
-        print("3. Exit Application")
-        print("=================================")
+        print("="*52)
+        print(f" "*4, "USHURU WANGU-YOUR FUEL TRANSPARENCY TOOL")
+        print("="*52)
+        print("Welcome to Ushuru Wangu your fuel transparency tool,what would you like to do?")
+        print("1.Calculate my fuel taxes")
+        print("2.Report bad road condition")
+        print("3.Exit Application")
+        print("="*52)
 
         # Get user input and strip accidental spaces
         choice = input("Please select an option (1-3): ").strip()
