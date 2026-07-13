@@ -8,6 +8,9 @@ import os
 from datetime import datetime
 
 
+RECEIPTS_FILE = "tax_receipts.txt"
+
+
 # ============================
 # EPRA FUEL PRICING CONSTANTS (June–July 2026)
 # ============================
@@ -164,18 +167,91 @@ def compare_with_neighbours(total_tax, fuel_type, litres):
     print("Note: Tax breakdowns for other countries are not shown.\n")
 
 
-def save_receipt(breakdown, fuel_type, litres):
-    """Append the tax receipt to a text file."""
+def _ensure_receipts_file(file_path=RECEIPTS_FILE):
+    """Create the receipts file with a header if it does not already exist."""
+    if os.path.exists(file_path):
+        return
+
+    with open(file_path, "w") as f:
+        f.write("# USHURU WANGU RECEIPTS\n")
+        f.write("# Format: ReceiptID | Timestamp | Fuel | Litres | Price/L | Total Paid | Total Tax\n")
+
+
+def _next_receipt_id(file_path=RECEIPTS_FILE):
+    """Generate a sequential receipt id based on existing saved receipts."""
+    _ensure_receipts_file(file_path)
+    serial = 1
+
+    try:
+        with open(file_path, "r") as f:
+            for line in f:
+                cleaned = line.strip()
+                if cleaned and not cleaned.startswith("#"):
+                    serial += 1
+    except Exception:
+        return "RCPT-000001"
+
+    return f"RCPT-{serial:06d}"
+
+
+def _build_receipt_record(breakdown, fuel_type, litres):
+    """Build a structured receipt record for display and file storage."""
     pump_price = RETAIL_PRICE[fuel_type] * litres
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    line = (f"{timestamp} | {fuel_type.capitalize()} | {litres:.2f} L | "
-            f"Total Paid KES {pump_price:,.2f} | "
-            f"Total Tax KES {breakdown['total_tax']:,.2f}\n")
+    receipt_id = _next_receipt_id()
+
+    return {
+        "receipt_id": receipt_id,
+        "timestamp": timestamp,
+        "fuel_type": fuel_type.capitalize(),
+        "litres": litres,
+        "price_per_litre": RETAIL_PRICE[fuel_type],
+        "total_paid": pump_price,
+        "total_tax": breakdown["total_tax"]
+    }
+
+
+def save_receipt(breakdown, fuel_type, litres):
+    """Append the tax receipt to a text file and return the saved record."""
+    _ensure_receipts_file()
+    record = _build_receipt_record(breakdown, fuel_type, litres)
+    line = (
+        f"{record['receipt_id']} | {record['timestamp']} | {record['fuel_type']} | "
+        f"{record['litres']:.2f} L | KES {record['price_per_litre']:.2f}/L | "
+        f"Total Paid KES {record['total_paid']:,.2f} | "
+        f"Total Tax KES {record['total_tax']:,.2f}\n"
+    )
+
     try:
-        with open("tax_receipts.txt", "a") as f:
+        with open(RECEIPTS_FILE, "a") as f:
             f.write(line)
+        return record
     except Exception as e:
         print(f"Error saving receipt: {e}")
+        return None
+
+
+def view_saved_receipts(limit=5):
+    """Display the latest saved tax receipts from file."""
+    if not os.path.exists(RECEIPTS_FILE):
+        print("No receipts found yet. Generate a receipt first.")
+        return
+
+    try:
+        with open(RECEIPTS_FILE, "r") as f:
+            rows = [line.strip() for line in f if line.strip() and not line.startswith("#")]
+    except Exception as e:
+        print(f"Error reading receipts: {e}")
+        return
+
+    if not rows:
+        print("No receipts found yet. Generate a receipt first.")
+        return
+
+    print("\n--- Latest Tax Receipts ---")
+    for row in rows[-limit:]:
+        print(row)
+    print("-" * 50)
 
 
 def add_pothole_report():
@@ -221,9 +297,10 @@ def main():
     while True:
         print("\n===== USHURU WANGU =====")
         print("1. Calculate my fuel tax receipt")
-        print("2. Report a pothole / road condition")
-        print("3. Exit")
-        choice = input("Enter your choice (1-3): ").strip()
+        print("2. View saved tax receipts")
+        print("3. Report a pothole / road condition")
+        print("4. Exit")
+        choice = input("Enter your choice (1-4): ").strip()
 
         if choice == "1":
             fuel = input("Fuel type (petrol/diesel): ").strip().lower()
@@ -246,18 +323,26 @@ def main():
                 continue
 
             display_receipt(breakdown, fuel, litres)
-            save_receipt(breakdown, fuel, litres)
+            saved_receipt = save_receipt(breakdown, fuel, litres)
+            if saved_receipt:
+                print(
+                    f"Receipt saved: {saved_receipt['receipt_id']} "
+                    f"at {saved_receipt['timestamp']}"
+                )
             compare_with_neighbours(breakdown["total_tax"], fuel, litres)
 
         elif choice == "2":
-            add_pothole_report()
+            view_saved_receipts()
 
         elif choice == "3":
+            add_pothole_report()
+
+        elif choice == "4":
             print("Asante kwa kutumia Ushuru Wangu. Goodbye!")
             break
 
         else:
-            print("Invalid choice. Enter 1, 2, or 3.")
+            print("Invalid choice. Enter 1, 2, 3, or 4.")
 
 
 if __name__ == "__main__":

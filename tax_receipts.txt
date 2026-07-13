@@ -1,2 +1,3 @@
 2026-07-07 16:31:49 | petrol | 20.00 L | Total Tax KES 1104.32
 2026-07-07 17:03:54 | Petrol | 25.00 L | Total Paid KES 5,350.75 | Total Tax KES 1,736.56
+RCPT-000003 | 2026-07-13 08:17:04 | Petrol | 10.00 L | KES 214.03/L | Total Paid KES 2,140.30 | Total Tax KES 694.62
