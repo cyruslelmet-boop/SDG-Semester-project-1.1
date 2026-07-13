@@ -16,9 +16,9 @@ TAX_RATES = {
         "petroleum_regulatory_levy": 0.75,
 
         # Percentage-based levies — calculated as percentage of CIF (landed cost)
-        "railway_development_levy": 0.02,     # 2% of CIF 
-        "import_declaration_fee": 0.035,       # 3.5% of CIF 
-        "merchant_shipping_levy": 0.0005,      # 0.05% of CIF
+        "railway_development_levy_rate": 0.02,     # 2% of CIF 
+        "import_declaration_fee_rate": 0.035,       # 3.5% of CIF 
+        "merchant_shipping_levy_rate": 0.0005,      # 0.05% of CIF
 
         
     },
@@ -30,9 +30,9 @@ TAX_RATES = {
         "petroleum_regulatory_levy": 0.75,
 
          #Percentage of CIF levies:
-        "railway_development_levy": 0.02,
-        "import_declaration_fee": 0.035,
-        "merchant_shipping_levy": 0.0005,
+        "railway_development_levy_rate": 0.02,
+        "import_declaration_fee_rate": 0.035,
+        "merchant_shipping_levy_rate": 0.0005,
 
         
     }

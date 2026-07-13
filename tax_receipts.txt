@@ -1,2 +1,5 @@
 2026-07-07 16:31:49 | petrol | 20.00 L | Total Tax KES 1104.32
 2026-07-07 17:03:54 | Petrol | 25.00 L | Total Paid KES 5,350.75 | Total Tax KES 1,736.56
+2026-07-10 09:29:35 | Petrol | 3.00 L | Total Paid KES 642.09 | Total Tax KES 208.39
+2026-07-10 09:30:17 | Petrol | 1.00 L | Total Paid KES 214.03 | Total Tax KES 69.46
+2026-07-12 02:19:31 | Petrol | 1.00 L | Total Paid KES 214.03 | Total Tax KES 69.46
